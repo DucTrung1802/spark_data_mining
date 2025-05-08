@@ -1,24 +1,85 @@
-# seminar_4
+# H?c máy và Khai thác d? li?u nâng cao
 
-# ğŸ§  ML Paper Title Generation
+# 1. Thành viên nhóm và phân công công vi?c
 
-Generate paper titles from ML ArXiv abstracts using transformer models with experiment tracking via MLflow.
-
-## ğŸš€ Overview
-
-This project trains a sequence-to-sequence transformer model to generate paper titles from ML ArXiv abstracts. It uses PySpark for preprocessing, Hugging Face Transformers for modeling, and MLflow for experiment tracking. The training process leverages modern tools and runs on Python 3.12 with CUDA 12.4 for GPU acceleration.
-
-
-## âš™ï¸ Environment
-
-- **Python:** 3.12  
-- **CUDA:** 12.4  
-- **Frameworks:** PySpark, Hugging Face Transformers, MLflow, PyTorch
+| H? và tên               | MSSV      | Phân công công vi?c                                                 |
+|-------------------------|-----------|---------------------------------------------------------------------|
+| Hà Thanh Hıõng          | 23007944  | - T?u h?<br>- T?u h?<br>- T?u h? |
+| Nguy?n Th? Minh Phı?ng  | 23007937  | - T?u h?<br>- T?u h?<br>- T?u h? |
+| L? Ğ?c Trung            | 23007933  | - T?u h?<br>- T?u h?<br>- T?u h? |
+| Nguy?n Th? Ng?c Uyên    | 23007930  | - T?u h?<br>- T?u h?<br>- T?u h? |
 
 
-## ğŸ“¦ Setup Instructions
+# 2. Hı?ng d?n v? cách t? ch?c và th?c nghi?m chıõng tr?nh
 
-### 1. ğŸ“ Download Data
+## 2.1. Yêu c?u v? ph?n c?ng
+
+### 2.1.1. CPU (cho Spark và x? l? d? li?u)
+- S? l?i: T?i thi?u 4 l?i v?t l? (nên có 8 lu?ng tr? lên)
+- T?c ğ? xung nh?p: 2.5 GHz ho?c nhanh hõn
+
+### 2.1.2. RAM
+- T?i thi?u: 16 GB (Spark và vi?c token hóa T5 c?n nhi?u b? nh?)
+- Khuy?n ngh?: 32 GB ğ? x? l? mı?t mà hõn
+
+### 2.1.3. GPU (cho vi?c hu?n luy?n và sinh tiêu ğ? b?ng mô h?nh T5)
+
+**T?i thi?u:**
+- GPU: NVIDIA v?i ít nh?t 8 GB VRAM (ví d?: NVIDIA RTX 3060, Quadro RTX 4000, ho?c Tesla T4)
+- CUDA Compute Capability: T? 7.0 tr? lên
+
+**Khuy?n ngh?:**
+- GPU: T? 12 GB VRAM tr? lên (ví d?: RTX 3080, A6000, ho?c tıõng ğıõng)
+
+
+### 2.1.4. B? nh? lıu tr?
+- SSD v?i ít nh?t **50 GB** dung lı?ng tr?ng
+
+## 2.2. Yêu c?u v? h? ği?u hành
+
+- Linux: Ubuntu 20.04 tr? lên (ıu tiên do h? tr? CUDA t?t) ()
+- Windows 10+
+
+## 2.3. Yêu c?u v? ph?n m?m
+
+### 2.3.1. Ph?n m?m
+
+- CUDA: 12.4 (kh?p v?i Torch 2.7.0)
+- cuDNN: Phù h?p v?i CUDA 12.4
+- Driver GPU: NVIDIA Driver phiên b?n >= 550.x
+
+
+### 2.3.2. Các thı vi?n Python
+
+- Python 3.12
+- pyspark 3.5.5
+- transformers 4.51.3
+- torch 2.7.0
+- mlflow 2.22.0
+- sacrebleu 2.5.1
+- rouge 1.0.1
+- accelerate 1.6.0
+- hf_xet 1.1.0
+
+# 3. Hı?ng d?n cài ğ?t
+
+**`Hı?ng d?n cài ğ?t s? cho h? ği?u hành Ubuntu 20.04`**
+
+## 3.1. Ğ?m b?o yêu c?u v? ph?n c?ng và h? ği?u hành t?i bı?c này
+
+
+## 3.2. C?p nh?t cho h? ği?u hành
+
+M? Terminal ch?y d?ng code sau
+
+```bash
+sudo apt update && sudo apt upgrade
+```
+
+
+---
+
+### 1. ?? Download Data
 
 ```bash
 mkdir data
@@ -27,14 +88,14 @@ wget https://huggingface.co/datasets/CShorten/ML-ArXiv-Papers/resolve/main/ML-Ar
 cd ..
 ```
 
-### 2. ğŸ› ï¸ Set Up Environment
+### 2. ??? Set Up Environment
 
 ```bash
 conda create -n title python=3.12
 conda activate title
 ```
 
-### 3. ğŸ“¥ Install Dependencies
+### 3. ?? Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -43,11 +104,11 @@ pip install -r requirements.txt
 If using CUDA 12.4, ensure you install PyTorch with the appropriate version:
 
 ```bash
-pip install torch==2.3.0+cu124 -f https://download.pytorch.org/whl/torch_stable.html
+pip install torch 2.3.0+cu124 -f https://download.pytorch.org/whl/torch_stable.html
 ```
 
 
-## ğŸ“Š Track Experiments with MLflow
+## ?? Track Experiments with MLflow
 
 ### Start MLflow UI
 
@@ -58,7 +119,7 @@ mlflow ui --port 5000
 Access the MLflow dashboard at: `http:/localhost:5000`
 
 
-## ğŸƒâ€â™‚ï¸ Run Training
+## ????? Run Training
 
 ### Train the Model
 
