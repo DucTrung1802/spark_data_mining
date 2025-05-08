@@ -1,0 +1,10 @@
+# python 3.12
+# CUDA Version: 12.4
+pyspark==3.5.5
+transformers==4.51.3
+torch==2.7.0
+mlflow==2.22.0
+sacrebleu==2.5.1
+rouge==1.0.1
+accelerate==1.6.0
+hf_xet==1.1.0
